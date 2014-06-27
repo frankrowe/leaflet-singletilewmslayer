@@ -1,3 +1,4 @@
+
 L.SingleTileWMSLayer = L.ImageOverlay.extend({
 
   defaultWmsParams: {
@@ -39,10 +40,12 @@ L.SingleTileWMSLayer = L.ImageOverlay.extend({
     this._bounds = map.getBounds();
 
     map.on('moveend', this._onViewReset, this)
+
     // hide on zoom
     if (map.options.zoomAnimation && L.Browser.any3d) {
       map.on('zoomanim', this._onZoomAnim, this)
     }
+    
     // request a first image on add
     this._onViewReset()
   },
@@ -103,7 +106,7 @@ L.SingleTileWMSLayer = L.ImageOverlay.extend({
     }
   },
   _onSwapImageLoad:function () {
-    if (this._isSwap){
+    if (this._isSwap) {
       this._imageSwap.style.visibility = 'hidden'
       this._image.style.visibility = ''
     } else {
@@ -116,13 +119,13 @@ L.SingleTileWMSLayer = L.ImageOverlay.extend({
   },
 
   swapImage:function (src, bounds) {
-    if (!this._imagesCreated){
+    if (!this._imagesCreated) {
       this._image = this._createImageSwap()
       this._imageSwap = this._createImageSwap()
       this._imagesCreated = true
     }
 
-    if (this._isSwap){
+    if (this._isSwap) {
       this._image.src = src
     } else {
       this._imageSwap.src = src
@@ -146,6 +149,8 @@ L.SingleTileWMSLayer = L.ImageOverlay.extend({
   }
 })
 
+
 L.singleTileWMSLayer = function (url, options) {
   return new L.SingleTileWMSLayer(url, options)
 }
+
