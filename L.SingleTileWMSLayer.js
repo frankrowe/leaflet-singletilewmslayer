@@ -1,4 +1,3 @@
-
 L.SingleTileWMSLayer = L.ImageOverlay.extend({
 
   defaultWmsParams: {
@@ -16,7 +15,7 @@ L.SingleTileWMSLayer = L.ImageOverlay.extend({
     if (url.indexOf("{s}") != -1) {
       this.options.subdomains = options.subdomains = '1234'
     }
-    var wmsParams = L.extend({}, this.defaultWmsParams);
+    var wmsParams = L.extend({}, this.defaultWmsParams)
 
     for (var i in options) {
       if (!this.options.hasOwnProperty(i)) {
@@ -26,8 +25,8 @@ L.SingleTileWMSLayer = L.ImageOverlay.extend({
 
     this.wmsParams = wmsParams
 
-    this._isSwap = false;
-    this._imageSwap = null;
+    this._isSwap = false
+    this._imageSwap = null
     L.setOptions(this, options)
   },
 
@@ -37,7 +36,7 @@ L.SingleTileWMSLayer = L.ImageOverlay.extend({
     var projectionKey = parseFloat(this.wmsParams.version) >= 1.3 ? 'crs' : 'srs'
     this.wmsParams[projectionKey] = map.options.crs.code
 
-    this._bounds = map.getBounds();
+    this._bounds = map.getBounds()
 
     map.on('moveend', this._onViewReset, this)
 
@@ -45,7 +44,7 @@ L.SingleTileWMSLayer = L.ImageOverlay.extend({
     if (map.options.zoomAnimation && L.Browser.any3d) {
       map.on('zoomanim', this._onZoomAnim, this)
     }
-    
+
     // request a first image on add
     this._onViewReset()
   },
@@ -142,15 +141,13 @@ L.SingleTileWMSLayer = L.ImageOverlay.extend({
       onselectstart: L.Util.falseFn,
       onmousemove: L.Util.falseFn,
       onload: L.Util.bind(this._onSwapImageLoad, this)
-    });
+    })
     this._map.getPanes().overlayPane.appendChild(el)
     el.style.visibility = ''
     return el
   }
 })
 
-
 L.singleTileWMSLayer = function (url, options) {
   return new L.SingleTileWMSLayer(url, options)
 }
-
